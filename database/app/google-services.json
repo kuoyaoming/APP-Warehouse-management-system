@@ -38,7 +38,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:475039997942:android:7ac689e55f1c53c85531d7",
         "android_client_info": {
-          "package_name": "com.google.firebase.quickstart.database"
+          "package_name": "com.chhsiao.firebase.quickstart.database"
         }
       },
       "oauth_client": [
