@@ -1,88 +1,135 @@
-倉儲盤點APP
-=============================
+## 倉儲盤點 APP / Warehouse Inventory App
 
 <p float="left">
-  <img src="../../blob/main/5.jpg?raw=true" width="250" />
-  <img src="../../blob/main/4.jpg?raw=true" width="250" /> 
-  <img src="../../blob/main/3.jpg?raw=true" width="250" />
-  <img src="../../blob/main/2.jpg?raw=true" width="250" />
-  <img src="../../blob/main/1.jpg?raw=true" width="250" />
+  <img src="./5.jpg?raw=true" width="250" />
+  <img src="./4.jpg?raw=true" width="250" />
+  <img src="./3.jpg?raw=true" width="250" />
+  <img src="./2.jpg?raw=true" width="250" />
+  <img src="./1.jpg?raw=true" width="250" />
 </p>
 
+---
 
+### 中文介紹
 
-簡介
-------------
+**倉儲盤點 APP** 是一個以 Firebase 為後端的 Android 應用程式，協助使用者快速建立、管理並同步盤點資料。
 
-- 使用者註冊、登入系統
-- 查看、新增盤點資料
-- 使用者可依多種預設項目填寫
-- 資料可附加手機內照片
-- 資料庫內容會於手機連線時自動同步至遠端資料庫
+- 使用者註冊／登入（Email/Password）
+- 新增、瀏覽及更新盤點資料
+- 依預設欄位填寫（品名、位置、數量、單位、備註…）
+- 支援附加手機內照片
+- 裝置上線時，資料自動同步至遠端（Firebase Realtime Database + Storage）
 
-使用套件
-------------
+**主要技術**
+- Firebase Authentication、Realtime Database、Storage
+- Android（以 Android Studio 建置）
 
-- [Firebase Database](https://firebase.google.com/docs/database)
+**資料儲存**
+- 照片：以 JPEG 儲存於 Firebase Storage，檔名格式如 `1628241139810.jpg`
+- 盤點資料：以 JSON 儲存於 Firebase Realtime Database，根節點包含 `users` 與 `posts`（使用者資料、盤點資料），結構與 [Firebase Database Quickstart] 風格一致
 
-資料庫架構
-------------
-- 圖片已JPEG格式儲存於firebase storeage，檔名格式為`時間湊雜碼.jpg`,如`1628241139810.jpg`
-- 倉儲資料已JSON格式儲存於firebase realtime database，JSON root 目錄中分為`post`及`user`子項
- - `user`用於儲存使用者資料，格式如下
-```
+**專案結構**
+- `database/`：Android 專案根目錄（請以此資料夾作為 Android Studio 專案開啟）
+- `database/app/`：App 模組（放置 `google-services.json`）
+- `internal/`：工具／輔助模組
+- 根目錄放置示意截圖 `1.jpg`～`5.jpg`
+
+**快速開始**
+1. 使用 Android Studio 開啟專案資料夾：`database/`
+2. 建立 Firebase 專案並啟用 Email/Password 身分驗證
+3. 下載並放置 `google-services.json` 至 `database/app/`
+4. 建立 Realtime Database 與 Storage（開發期間可先使用較寬鬆的規則）
+5. 同步 Gradle，於真機或模擬器執行
+
+開發用範例規則（請依實際需求調整）：
+
+```javascript
+// Realtime Database（開發用）
 {
-    "使用者唯一id(英數混合30碼)" : {
-      "email" : "使用者註冊email",
-      "username" : "使用者註冊名"
-    },
-
-    "6zQSr4KCy9fX4pXW4ThRtYMMJRS2" : {
-      "email" : "user123@gmail.com",
-      "username" : "user123"
-    }
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
 }
 ```
- - `post`用於儲存倉儲資料，格式如下
-```
-    "倉儲資料識別碼" : {
-      "author" : "編輯者id",
-      "count" : "盤點數量",
-      "format" : "單位",
-      "location" : "位置",
-      "name" : "品名",
-      "number" : "帳上數量",
-      "remarks" : "註記",
-      "snumber" : "te7",
-      "starCount" : 0,
-      "uid" : "編輯者id",
-      "unit" : "單位",
-      "uploadFileName" : "照片id"
-    },
 
-    "-MgPj0IPPqCv51pcL4Y2" : {
-      "author" : "power703",
-      "count" : "4",
-      "format" : "個",
-      "location" : "i8",
-      "name" : "熊",
-      "number" : "5",
-      "remarks" : "",
-      "snumber" : "te7",
-      "starCount" : 0,
-      "uid" : "hMGvtJcv6bbb1znwvINRzcZZ7fj1",
-      "unit" : "個",
-      "uploadFileName" : "1628241139810.jpg"
-    },
+```javascript
+// Storage（開發用）
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if true;
+    }
+  }
+}
 ```
 
-展示影片
-------------
-[Youtube連結](https://youtu.be/LMsfWJopg8k)
+**展示影片**：`https://youtu.be/LMsfWJopg8k`
 
-預計增加功能
-------------
- - [ ] 制定目錄樹分類（倉庫、區、排、位置）
- - [ ] 可自訂項目欄位模板（目前是預設）
- - [ ] 可附加多張照片
- - [ ] beta版上架play商店
+**預計增加功能**
+- [ ] 目錄樹分類（倉庫／區／排／位置）
+- [ ] 可自訂欄位模板
+- [ ] 多張照片上傳
+- [ ] Beta 版上架到 Google Play
+
+---
+
+### English
+
+**Warehouse Inventory App** is an Android application powered by Firebase to help you create, manage, and sync inventory counts on mobile.
+
+- Email/Password authentication
+- Create, view, and update inventory posts
+- Predefined fields (name, location, quantity, unit, remarks, …)
+- Attach photos from device storage
+- Automatic sync to Firebase Realtime Database and Storage when online
+
+**Tech stack**
+- Firebase Authentication, Realtime Database, Storage
+- Android, built with Android Studio
+
+**Project layout**
+- `database/`: Android project root (open this folder in Android Studio)
+- `database/app/`: App module (place your `google-services.json` here)
+- `internal/`: tooling/aux modules
+- Root images `1.jpg`–`5.jpg`
+
+**Getting started**
+1. Open the `database/` folder in Android Studio
+2. Create a Firebase project and enable Email/Password auth
+3. Download `google-services.json` and place it at `database/app/`
+4. Create Realtime Database and Storage (start with permissive rules for development only)
+5. Sync Gradle and run on a device/emulator
+
+Dev-only sample rules (adapt for production):
+
+```javascript
+// Realtime Database (development)
+{
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
+}
+```
+
+```javascript
+// Storage (development)
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if true;
+    }
+  }
+}
+```
+
+**Demo video**: `https://youtu.be/LMsfWJopg8k`
+
+**Roadmap**
+- [ ] Hierarchical locations (warehouse/area/row/slot)
+- [ ] Customizable field templates
+- [ ] Multiple photo attachments
+- [ ] Publish Beta on Google Play
