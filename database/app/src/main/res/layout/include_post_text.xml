@@ -9,10 +9,37 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="儲位 : "
+        android:text="Warehouse : "
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewArea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Area : "
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textViewRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Row : "
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewArea" />
+
+    <TextView
+        android:id="@+id/textViewSlot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Slot : "
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRow" />
 
     <TextView
         android:id="@+id/textView3"
@@ -75,10 +102,10 @@
         android:text="備註 : "
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewSlot" />
 
     <TextView
-        android:id="@+id/postLocation"
+        android:id="@+id/postWarehouse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
@@ -87,13 +114,40 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/postArea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/textViewArea"
+        app:layout_constraintTop_toBottomOf="@+id/postWarehouse" />
+
+    <TextView
+        android:id="@+id/postRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/textViewRow"
+        app:layout_constraintTop_toBottomOf="@+id/postArea" />
+
+    <TextView
+        android:id="@+id/postSlot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/textViewSlot"
+        app:layout_constraintTop_toBottomOf="@+id/postRow" />
+
+    <TextView
         android:id="@+id/postSNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/postLocation" />
+        app:layout_constraintTop_toBottomOf="@+id/postSlot" />
 
     <TextView
         android:id="@+id/postName"

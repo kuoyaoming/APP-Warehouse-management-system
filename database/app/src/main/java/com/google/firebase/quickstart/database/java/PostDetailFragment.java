@@ -99,7 +99,10 @@ public class PostDetailFragment extends BaseFragment {
                 // Get Post object and use the values to update the UI
                 Post post = dataSnapshot.getValue(Post.class);
                 binding.postAuthorLayout.postAuthor.setText(post.author);
-                binding.postTextLayout.postLocation.setText(post.location);
+                binding.postTextLayout.postWarehouse.setText(post.warehouse);
+                binding.postTextLayout.postArea.setText(post.area);
+                binding.postTextLayout.postRow.setText(post.row);
+                binding.postTextLayout.postSlot.setText(post.slot);
                 binding.postTextLayout.postSNumber.setText(post.snumber);
                 binding.postTextLayout.postName.setText(post.name);
                 binding.postTextLayout.postFormat.setText(post.format);
@@ -108,20 +111,22 @@ public class PostDetailFragment extends BaseFragment {
                 binding.postTextLayout.postCount.setText(post.count);
                 binding.postTextLayout.postRemarks.setText(post.remarks);
 
-                FirebaseStorage storage = FirebaseStorage.getInstance();
-                StorageReference storageRef = storage.getReference();
-                storageRef.child(post.uploadFileName).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        // Got the download URL for 'users/me/profile.png'
-                        Picasso.get().load(uri).into(binding.imageView2);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle any errors
-                    }
-                });
+                if (post.uploadFileNames != null && !post.uploadFileNames.isEmpty()) {
+                    FirebaseStorage storage = FirebaseStorage.getInstance();
+                    StorageReference storageRef = storage.getReference();
+                    storageRef.child(post.uploadFileNames.get(0)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            // Got the download URL for 'users/me/profile.png'
+                            Picasso.get().load(uri).into(binding.imageView2);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle any errors
+                        }
+                    });
+                }
 
 //                storageReference.child(post.uploadFileName).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
 //                    @Override
